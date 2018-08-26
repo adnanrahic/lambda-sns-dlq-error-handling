@@ -1,0 +1,56 @@
+service: test-timeout-dlq
+
+custom:
+  secrets: ${file(secrets.json)}
+
+plugins:
+  - serverless-pseudo-parameters
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: dev
+  region: eu-central-1
+  profile: ${self:custom.secrets.profile, 'dev'}
+  memorySize: 128
+  timeout: 3
+  logRetentionInDays: 7
+  environment:
+    accountId: '#{AWS::AccountId}'
+    region: ${self:provider.region}
+  iamRoleStatements:
+    - Effect: "Allow"
+      Resource: "*"
+      Action:
+        - "sns:*"
+
+functions:
+
+  init:
+    handler: init.handler
+    events:
+      - http:
+          path: init
+          method: post
+          cors: true
+    onError: arn:aws:sns:#{AWS::Region}:#{AWS::AccountId}:dlq-stream
+
+  calculate:
+    handler: calculate.handler
+    events:
+      - sns: calculate-topic
+    onError: arn:aws:sns:#{AWS::Region}:#{AWS::AccountId}:dlq-stream
+
+  errorHandler:
+    handler: error.handler
+    events:
+      - sns: dlq-stream
+    
+
+# resources:
+#   Resources:
+#     SnsDlqTopic:
+#       Type: AWS::SNS::Topic
+#       Properties: 
+#         DisplayName: SNS Topic for DLQ Error handling
+#         TopicName: dlq-stream

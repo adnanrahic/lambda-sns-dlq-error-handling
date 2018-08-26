@@ -1,0 +1,16 @@
+{
+  "name": "lambda-sns-dlq-error-handling",
+  "version": "0.0.1",
+  "description": "",
+  "main": "handler.js",
+  "dependencies": {
+    "serverless-pseudo-parameters": "^2.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
