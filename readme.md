@@ -30,3 +30,4 @@ The service is only a basic proof of concept which shows the use case of SNS tri
 - add SQS resources
 - create setup where DLQ uses SQS
 - create stream between `init` and `calculate` with SQS
+- add SSM params instead of `secrets.json`
