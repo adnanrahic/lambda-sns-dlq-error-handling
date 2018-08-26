@@ -23,3 +23,10 @@ This will trigger the `error` function where you can handle the error as you wis
 ---
 
 The service is only a basic proof of concept which shows the use case of SNS triggering lambda functions and dead letter queues. The actual code is trivial and not exciting at all, but it serves the sole purpose of explaining what the *@$# is going on. :smile:
+
+--- 
+
+### TODO
+- add SQS resources
+- create setup where DLQ uses SQS
+- create stream between `init` and `calculate` with SQS

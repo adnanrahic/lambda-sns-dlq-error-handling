@@ -46,11 +46,7 @@ functions:
     events:
       - sns: dlq-stream
     
-
+# TODO - ADD SQS QUEUE
 # resources:
 #   Resources:
-#     SnsDlqTopic:
-#       Type: AWS::SNS::Topic
-#       Properties: 
-#         DisplayName: SNS Topic for DLQ Error handling
-#         TopicName: dlq-stream
+#     SQSDLQStream:
