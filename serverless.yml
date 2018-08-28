@@ -13,8 +13,6 @@ provider:
   region: eu-central-1
   profile: ${self:custom.secrets.profile, 'dev'}
   memorySize: 128
-  timeout: 3
-  logRetentionInDays: 7
   environment:
     accountId: '#{AWS::AccountId}'
     region: ${self:provider.region}
@@ -25,7 +23,6 @@ provider:
         - "sns:*"
 
 functions:
-
   init:
     handler: init.handler
     events:
@@ -33,18 +30,15 @@ functions:
           path: init
           method: post
           cors: true
-    onError: arn:aws:sns:#{AWS::Region}:#{AWS::AccountId}:dlq-stream
-
   calculate:
     handler: calculate.handler
     events:
       - sns: calculate-topic
-    onError: arn:aws:sns:#{AWS::Region}:#{AWS::AccountId}:dlq-stream
-
-  errorHandler:
+    onError: arn:aws:sns:#{AWS::Region}:#{AWS::AccountId}:dlq-topic
+  error:
     handler: error.handler
     events:
-      - sns: dlq-stream
+      - sns: dlq-topic
     
 # TODO - ADD SQS QUEUE
 # resources:
