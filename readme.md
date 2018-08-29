@@ -1,3 +1,5 @@
+<img src="https://raw.githubusercontent.com/adnanrahic/cdn/master/trigger-lambda-sns/sls-aws-lambda-sns3.png" width="100%">
+
 # Trigger AWS Lambda with SNS with DLQ error handling 
 Sample project for showing the ability to publish an SNS topic and trigger a function from the topic. Code is structured to create a timeout/crash so the dead letter queue SNS topic gets published, in turn triggering the error handler function.
 
